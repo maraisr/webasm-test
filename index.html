@@ -1,0 +1,18 @@
+<html>
+    <body>
+        
+        <script>
+            async function load() {
+                const script = await fetch('main.wasm');
+                const buff = await script.arrayBuffer();
+
+                const compiled = await WebAssembly.compile(buff);
+                return await WebAssembly.Instance(compiled);
+            }
+
+            load().then(module => {
+                console.log(module);
+            });
+        </script>
+    </body>
+</html>
