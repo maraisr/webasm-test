@@ -6,8 +6,4 @@ cd emsdk
 
 rustup toolchain add nightly
 rustup target add wasm32-unknown-emscripten --toolchain nightly
-
-rustc --target wasm32-unknown-emscripten main.rs
-
-rm -rf main.w* main*.js
 ```

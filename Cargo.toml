@@ -1,0 +1,7 @@
+[package]
+name = "webasm-test"
+version = "0.1.0"
+
+[[bin]]
+name = "wasm"
+path = "main.rs"
