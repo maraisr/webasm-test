@@ -1,18 +1,29 @@
 <html>
-    <body>
-        
-        <script>
-            async function load() {
-                const script = await fetch('main.wasm');
-                const buff = await script.arrayBuffer();
 
-                const compiled = await WebAssembly.compile(buff);
-                return await WebAssembly.Instance(compiled);
+<body>
+    <script>
+        async function load() {
+            const script = await fetch('main.wasm');
+            const buff = await script.arrayBuffer();
+
+            const imports = {};
+            imports.env = imports.env || {};
+            imports.env.memoryBase = imports.env.memoryBase || 0;
+            imports.env.tableBase = imports.env.tableBase || 0;
+            if (!imports.env.memory) {
+                imports.env.memory = new WebAssembly.Memory({ initial: 256 });
+            }
+            if (!imports.env.table) {
+                imports.env.table = new WebAssembly.Table({ initial: 0, element: 'anyfunc' });
             }
 
-            load().then(module => {
-                console.log(module);
-            });
-        </script>
-    </body>
+            return (await WebAssembly.instantiate(buff, imports)).instance.exports
+        }
+
+        load().then(module => {
+            console.log(module._fib(10));
+        })
+    </script>
+</body>
+
 </html>
