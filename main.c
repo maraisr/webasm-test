@@ -1,4 +1,4 @@
-int fib(int x)
+unsigned int fib(unsigned int x)
 {
     return (x <= 2)
                ? 1

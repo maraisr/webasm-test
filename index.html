@@ -20,9 +20,7 @@
             return (await WebAssembly.instantiate(buff, imports)).instance.exports
         }
 
-        load().then(module => {
-            console.log(module._fib(10));
-        })
+        load().then(module => console.log(module._fib(10)));
     </script>
 </body>
 
